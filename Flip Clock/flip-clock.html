@@ -106,7 +106,7 @@
 
         .flip-card {
             position: relative;
-            width: 120px;
+            width: 200px;
             height: 160px;
             perspective: 1000px;
         }
@@ -140,6 +140,7 @@
             background: var(--card-bg);
             border-radius: 16px;
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
             font-size: 96px;
@@ -147,6 +148,22 @@
             color: var(--card-text);
             box-shadow: 0 8px 16px var(--shadow-color);
             border: 2px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+        }
+
+        .flip-card-face .time-digits {
+            font-size: 96px;
+            line-height: 1;
+        }
+
+        .flip-card-face .sub-label {
+            position: absolute;
+            bottom: 12px;
+            font-size: 16px;
+            font-weight: normal;
+            opacity: 0.7;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .flip-card-front {
@@ -183,68 +200,63 @@
         /* Responsive design - reduce actual sizes instead of scaling */
         @media (max-width: 600px) {
             .flip-card {
-                width: 100px;
+                width: 160px;
                 height: 130px;
             }
-            .flip-card-face {
-                font-size: 80px;
+            .flip-card-face .time-digits {
+                font-size: 72px;
+            }
+            .flip-card-face .sub-label {
+                font-size: 14px;
             }
             .separator-dot {
                 width: 14px;
                 height: 14px;
             }
-            .am-pm-indicator {
-                font-size: 40px;
-            }
         }
 
         @media (max-width: 450px) {
             .flip-card {
-                width: 80px;
+                width: 130px;
                 height: 110px;
             }
-            .flip-card-face {
-                font-size: 64px;
+            .flip-card-face .time-digits {
+                font-size: 56px;
+            }
+            .flip-card-face .sub-label {
+                font-size: 12px;
+                bottom: 8px;
             }
             .clock-container {
-                gap: 12px;
-            }
-            .time-section {
                 gap: 12px;
             }
             .separator-dot {
                 width: 12px;
                 height: 12px;
             }
-            .am-pm-indicator {
-                font-size: 32px;
-                padding: 12px 24px;
-            }
         }
 
         @media (max-width: 350px) {
             .flip-card {
-                width: 60px;
-                height: 80px;
+                width: 100px;
+                height: 90px;
             }
             .flip-card-face {
-                font-size: 48px;
-                border-radius: 8px;
+                border-radius: 12px;
+            }
+            .flip-card-face .time-digits {
+                font-size: 42px;
+            }
+            .flip-card-face .sub-label {
+                font-size: 10px;
+                bottom: 6px;
             }
             .clock-container {
-                gap: 8px;
-            }
-            .time-section {
                 gap: 8px;
             }
             .separator-dot {
                 width: 8px;
                 height: 8px;
-            }
-            .am-pm-indicator {
-                font-size: 24px;
-                padding: 8px 16px;
-                border-radius: 8px;
             }
         }
     </style>
@@ -252,18 +264,16 @@
 <body>
     <div class="clock-wrapper">
         <div class="clock-container">
-        <!-- Hours -->
-        <div class="time-section" id="hours-section">
-            <div class="flip-card" id="hour-tens">
-                <div class="flip-card-inner">
-                    <div class="flip-card-face flip-card-front">0</div>
-                    <div class="flip-card-face flip-card-back">0</div>
+        <!-- Hours Card with Day of Week -->
+        <div class="flip-card" id="hours-card">
+            <div class="flip-card-inner">
+                <div class="flip-card-face flip-card-front">
+                    <span class="time-digits">00</span>
+                    <span class="sub-label">MON</span>
                 </div>
-            </div>
-            <div class="flip-card" id="hour-ones">
-                <div class="flip-card-inner">
-                    <div class="flip-card-face flip-card-front">0</div>
-                    <div class="flip-card-face flip-card-back">0</div>
+                <div class="flip-card-face flip-card-back">
+                    <span class="time-digits">00</span>
+                    <span class="sub-label">MON</span>
                 </div>
             </div>
         </div>
@@ -274,91 +284,64 @@
             <div class="separator-dot"></div>
         </div>
 
-        <!-- Minutes -->
-        <div class="time-section" id="minutes-section">
-            <div class="flip-card" id="minute-tens">
-                <div class="flip-card-inner">
-                    <div class="flip-card-face flip-card-front">0</div>
-                    <div class="flip-card-face flip-card-back">0</div>
+        <!-- Minutes Card with AM/PM -->
+        <div class="flip-card" id="minutes-card">
+            <div class="flip-card-inner">
+                <div class="flip-card-face flip-card-front">
+                    <span class="time-digits">00</span>
+                    <span class="sub-label">AM</span>
                 </div>
-            </div>
-            <div class="flip-card" id="minute-ones">
-                <div class="flip-card-inner">
-                    <div class="flip-card-face flip-card-front">0</div>
-                    <div class="flip-card-face flip-card-back">0</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Separator (before seconds) -->
-        <div class="separator" id="seconds-separator">
-            <div class="separator-dot"></div>
-            <div class="separator-dot"></div>
-        </div>
-
-        <!-- Seconds -->
-        <div class="time-section" id="seconds-section">
-            <div class="flip-card" id="second-tens">
-                <div class="flip-card-inner">
-                    <div class="flip-card-face flip-card-front">0</div>
-                    <div class="flip-card-face flip-card-back">0</div>
-                </div>
-            </div>
-            <div class="flip-card" id="second-ones">
-                <div class="flip-card-inner">
-                    <div class="flip-card-face flip-card-front">0</div>
-                    <div class="flip-card-face flip-card-back">0</div>
+                <div class="flip-card-face flip-card-back">
+                    <span class="time-digits">00</span>
+                    <span class="sub-label">AM</span>
                 </div>
             </div>
         </div>
         </div>
-
-        <!-- AM/PM Indicator -->
-        <div class="am-pm-indicator hidden" id="am-pm">AM</div>
     </div>
 
     <script>
         // ===== CLOCK CONFIGURATION =====
-        const SHOW_SECONDS = false;  // Set to false to hide seconds
         const USE_12_HOUR = true;   // Set to true for 12-hour format with AM/PM, false for 24-hour
         // Store current displayed values to avoid unnecessary flips
         const currentValues = {
-            hourTens: '0',
-            hourOnes: '0',
-            minuteTens: '0',
-            minuteOnes: '0',
-            secondTens: '0',
-            secondOnes: '0'
+            hours: '00',
+            minutes: '00',
+            dayOfWeek: 'MON',
+            ampm: 'AM'
         };
 
-        // Get all flip card elements
-        const cards = {
-            hourTens: document.getElementById('hour-tens'),
-            hourOnes: document.getElementById('hour-ones'),
-            minuteTens: document.getElementById('minute-tens'),
-            minuteOnes: document.getElementById('minute-ones'),
-            secondTens: document.getElementById('second-tens'),
-            secondOnes: document.getElementById('second-ones')
-        };
+        // Get flip card elements
+        const hoursCard = document.getElementById('hours-card');
+        const minutesCard = document.getElementById('minutes-card');
+
+        // Get day of week abbreviation
+        function getDayOfWeek() {
+            const days = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
+            return days[new Date().getDay()];
+        }
 
         /**
-         * Flip a single card to show new digit
+         * Flip a card to show new time and label
          * @param {HTMLElement} card - The flip card element
-         * @param {string} newValue - The new digit to display
+         * @param {string} time - The time value (e.g., "12" or "34")
+         * @param {string} label - The sub-label (e.g., "MON" or "PM")
          */
-        function flipCard(card, newValue) {
+        function flipCard(card, time, label) {
             const front = card.querySelector('.flip-card-front');
             const back = card.querySelector('.flip-card-back');
 
-            // Set the back face to the new value
-            back.textContent = newValue;
+            // Set the back face to the new values
+            back.querySelector('.time-digits').textContent = time;
+            back.querySelector('.sub-label').textContent = label;
 
             // Add flipping class to trigger animation
             card.classList.add('flipping');
 
             // After animation completes, update front and remove class
             setTimeout(() => {
-                front.textContent = newValue;
+                front.querySelector('.time-digits').textContent = time;
+                front.querySelector('.sub-label').textContent = label;
                 card.classList.remove('flipping');
             }, 600); // Match the flip-duration variable
         }
@@ -385,7 +368,7 @@
             const now = new Date();
             let hours = now.getHours();
             const minutes = String(now.getMinutes()).padStart(2, '0');
-            const seconds = String(now.getSeconds()).padStart(2, '0');
+            const dayOfWeek = getDayOfWeek();
 
             // Convert to 12-hour format if needed
             let ampm = '';
@@ -393,35 +376,23 @@
                 const converted = convertTo12Hour(hours);
                 hours = converted.hours;
                 ampm = converted.ampm;
-
-                // Update AM/PM indicator
-                const ampmElement = document.getElementById('am-pm');
-                if (ampmElement.textContent !== ampm) {
-                    ampmElement.textContent = ampm;
-                }
             } else {
                 hours = String(hours).padStart(2, '0');
             }
 
-            // Split into individual digits
-            const newValues = {
-                hourTens: hours[0],
-                hourOnes: hours[1],
-                minuteTens: minutes[0],
-                minuteOnes: minutes[1],
-                secondTens: seconds[0],
-                secondOnes: seconds[1]
-            };
+            // Update hours card if changed
+            if (hours !== currentValues.hours || dayOfWeek !== currentValues.dayOfWeek) {
+                flipCard(hoursCard, hours, dayOfWeek);
+                currentValues.hours = hours;
+                currentValues.dayOfWeek = dayOfWeek;
+            }
 
-            // Only flip cards that have changed
-            Object.keys(newValues).forEach(key => {
-                if (SHOW_SECONDS || (!key.includes('second'))) {
-                    if (newValues[key] !== currentValues[key]) {
-                        flipCard(cards[key], newValues[key]);
-                        currentValues[key] = newValues[key];
-                    }
-                }
-            });
+            // Update minutes card if changed
+            if (minutes !== currentValues.minutes || (USE_12_HOUR && ampm !== currentValues.ampm)) {
+                flipCard(minutesCard, minutes, USE_12_HOUR ? ampm : '');
+                currentValues.minutes = minutes;
+                currentValues.ampm = ampm;
+            }
         }
 
         // Initialize clock with current time (no animation on first load)
@@ -429,50 +400,34 @@
             const now = new Date();
             let hours = now.getHours();
             const minutes = String(now.getMinutes()).padStart(2, '0');
-            const seconds = String(now.getSeconds()).padStart(2, '0');
+            const dayOfWeek = getDayOfWeek();
 
             // Convert to 12-hour format if needed
+            let ampm = '';
             if (USE_12_HOUR) {
                 const converted = convertTo12Hour(hours);
                 hours = converted.hours;
-
-                // Show AM/PM indicator
-                const ampmElement = document.getElementById('am-pm');
-                ampmElement.textContent = converted.ampm;
-                ampmElement.classList.remove('hidden');
+                ampm = converted.ampm;
             } else {
                 hours = String(hours).padStart(2, '0');
             }
 
-            // Hide seconds if not needed
-            if (!SHOW_SECONDS) {
-                document.getElementById('seconds-section').classList.add('hidden');
-                document.getElementById('seconds-separator').classList.add('hidden');
-            }
-
             // Set initial values without animation
-            const setValue = (card, value) => {
-                card.querySelector('.flip-card-front').textContent = value;
-                card.querySelector('.flip-card-back').textContent = value;
+            const setInitialValue = (card, time, label) => {
+                card.querySelector('.flip-card-front .time-digits').textContent = time;
+                card.querySelector('.flip-card-front .sub-label').textContent = label;
+                card.querySelector('.flip-card-back .time-digits').textContent = time;
+                card.querySelector('.flip-card-back .sub-label').textContent = label;
             };
 
-            setValue(cards.hourTens, hours[0]);
-            setValue(cards.hourOnes, hours[1]);
-            setValue(cards.minuteTens, minutes[0]);
-            setValue(cards.minuteOnes, minutes[1]);
-
-            if (SHOW_SECONDS) {
-                setValue(cards.secondTens, seconds[0]);
-                setValue(cards.secondOnes, seconds[1]);
-            }
+            setInitialValue(hoursCard, hours, dayOfWeek);
+            setInitialValue(minutesCard, minutes, USE_12_HOUR ? ampm : '');
 
             // Update current values
-            currentValues.hourTens = hours[0];
-            currentValues.hourOnes = hours[1];
-            currentValues.minuteTens = minutes[0];
-            currentValues.minuteOnes = minutes[1];
-            currentValues.secondTens = seconds[0];
-            currentValues.secondOnes = seconds[1];
+            currentValues.hours = hours;
+            currentValues.minutes = minutes;
+            currentValues.dayOfWeek = dayOfWeek;
+            currentValues.ampm = ampm;
         }
 
         // Initialize and start the clock
