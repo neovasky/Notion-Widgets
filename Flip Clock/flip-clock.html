@@ -90,8 +90,8 @@
         }
 
         .separator-dot {
-            width: 2vh;
-            height: 2vh;
+            width: clamp(10px, 3vh, 20px);
+            height: clamp(10px, 3vh, 20px);
             background: var(--separator-color);
             border-radius: 50%;
             box-shadow: 0 0 20px rgba(233, 69, 96, 0.3);
@@ -165,14 +165,14 @@
         }
 
         .flip-card-face .time-digits {
-            font-size: 12vh;
+            font-size: clamp(60px, 35vh, 180px);
             line-height: 1;
         }
 
         .flip-card-face .sub-label {
             position: absolute;
-            bottom: 2vh;
-            font-size: 2vh;
+            bottom: clamp(8px, 3vh, 20px);
+            font-size: clamp(12px, 5vh, 28px);
             font-weight: normal;
             opacity: 0.7;
             text-transform: uppercase;
