@@ -62,18 +62,18 @@
             gap: 1vh;
             height: 100%;
             width: 100%;
-            padding: 2vh 2vw;
+            padding: 1vh 1vw;
         }
 
         .clock-container {
             display: flex;
-            gap: 2vw;
+            gap: 1.5vw;
             align-items: center;
             flex-wrap: nowrap;
             justify-content: center;
             white-space: nowrap;
-            flex: 1;
-            max-height: 80vh;
+            height: 100%;
+            width: 100%;
         }
 
         .time-section {
@@ -90,8 +90,8 @@
         }
 
         .separator-dot {
-            width: clamp(10px, 3vh, 20px);
-            height: clamp(10px, 3vh, 20px);
+            width: clamp(8px, 2vh, 16px);
+            height: clamp(8px, 2vh, 16px);
             background: var(--separator-color);
             border-radius: 50%;
             box-shadow: 0 0 20px rgba(233, 69, 96, 0.3);
@@ -115,12 +115,9 @@
 
         .flip-card {
             position: relative;
-            width: 18vw;
-            height: 70vh;
-            min-width: 80px;
-            min-height: 120px;
-            max-width: 200px;
-            max-height: 300px;
+            flex: 0 0 auto;
+            width: clamp(100px, 20vw, 180px);
+            height: clamp(140px, 80vh, 280px);
             perspective: 1000px;
         }
 
@@ -165,14 +162,16 @@
         }
 
         .flip-card-face .time-digits {
-            font-size: clamp(60px, 35vh, 180px);
+            font-size: clamp(60px, 18vh, 140px);
             line-height: 1;
+            max-width: 100%;
+            overflow: hidden;
         }
 
         .flip-card-face .sub-label {
             position: absolute;
-            bottom: clamp(8px, 3vh, 20px);
-            font-size: clamp(12px, 5vh, 28px);
+            bottom: 1.5vh;
+            font-size: clamp(10px, 2.5vh, 18px);
             font-weight: normal;
             opacity: 0.7;
             text-transform: uppercase;
