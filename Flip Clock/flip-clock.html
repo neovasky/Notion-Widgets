@@ -31,12 +31,13 @@
         body {
             font-family: 'Arial', sans-serif;
             background: transparent;
+            margin: 0;
+            padding: 10px;
+            overflow: hidden;
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            margin: 0;
-            padding: 0;
-            overflow: hidden;
         }
 
         /* Hide scrollbar for all browsers */
@@ -54,7 +55,6 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            transform-origin: center center;
             gap: 16px;
         }
 
@@ -180,29 +180,71 @@
             transform: translateY(1px);
         }
 
-        /* Responsive design - scale entire clock to fit */
+        /* Responsive design - reduce actual sizes instead of scaling */
         @media (max-width: 600px) {
-            .clock-wrapper {
-                transform: scale(0.8);
+            .flip-card {
+                width: 100px;
+                height: 130px;
+            }
+            .flip-card-face {
+                font-size: 80px;
+            }
+            .separator-dot {
+                width: 14px;
+                height: 14px;
+            }
+            .am-pm-indicator {
+                font-size: 40px;
             }
         }
 
         @media (max-width: 450px) {
-            .clock-wrapper {
-                transform: scale(0.65);
+            .flip-card {
+                width: 80px;
+                height: 110px;
+            }
+            .flip-card-face {
+                font-size: 64px;
+            }
+            .clock-container {
+                gap: 12px;
+            }
+            .time-section {
+                gap: 12px;
+            }
+            .separator-dot {
+                width: 12px;
+                height: 12px;
+            }
+            .am-pm-indicator {
+                font-size: 32px;
+                padding: 12px 24px;
             }
         }
 
         @media (max-width: 350px) {
-            .clock-wrapper {
-                transform: scale(0.5);
+            .flip-card {
+                width: 60px;
+                height: 80px;
             }
-        }
-
-        /* For very constrained widths (like Notion sidebars) */
-        @media (max-width: 280px) {
-            .clock-wrapper {
-                transform: scale(0.4);
+            .flip-card-face {
+                font-size: 48px;
+                border-radius: 8px;
+            }
+            .clock-container {
+                gap: 8px;
+            }
+            .time-section {
+                gap: 8px;
+            }
+            .separator-dot {
+                width: 8px;
+                height: 8px;
+            }
+            .am-pm-indicator {
+                font-size: 24px;
+                padding: 8px 16px;
+                border-radius: 8px;
             }
         }
     </style>
