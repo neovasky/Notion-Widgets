@@ -132,24 +132,13 @@
             border-radius: 8px;
             color: var(--card-text);
             font-size: 0.95em;
-            cursor: pointer;
+            cursor: default;
             transition: all 0.3s ease;
             border: 1px solid transparent;
         }
 
-        .day:hover {
-            background: var(--hover-bg);
-            border-color: var(--accent-color);
-        }
-
         .day.other-month {
             color: #666;
-            cursor: default;
-        }
-
-        .day.other-month:hover {
-            background: transparent;
-            border-color: transparent;
         }
 
         .day.today {
@@ -158,17 +147,6 @@
             font-weight: bold;
             border-color: var(--today-bg);
             box-shadow: 0 0 10px rgba(233, 69, 96, 0.5);
-        }
-
-        .day.today:hover {
-            background: var(--accent-color);
-            transform: scale(1.05);
-        }
-
-        .day.selected {
-            background: var(--accent-color);
-            color: var(--today-text);
-            border-color: var(--accent-color);
         }
     </style>
 </head>
@@ -197,7 +175,6 @@
 
     <script>
         let currentDate = new Date();
-        let selectedDate = null;
 
         const monthNames = [
             'January', 'February', 'March', 'April', 'May', 'June',
@@ -244,19 +221,6 @@
                 if (isCurrentMonth && day === todayDate) {
                     dayElement.classList.add('today');
                 }
-
-                // Check if this day is selected
-                if (selectedDate &&
-                    selectedDate.getDate() === day &&
-                    selectedDate.getMonth() === month &&
-                    selectedDate.getFullYear() === year) {
-                    dayElement.classList.add('selected');
-                }
-
-                dayElement.addEventListener('click', () => {
-                    selectedDate = new Date(year, month, day);
-                    renderCalendar();
-                });
 
                 daysGrid.appendChild(dayElement);
             }
