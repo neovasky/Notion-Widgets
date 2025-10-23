@@ -133,8 +133,13 @@
             color: var(--card-text);
             font-size: 0.95em;
             cursor: default;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
             border: 1px solid transparent;
+        }
+
+        .day:not(.other-month):hover {
+            background: rgba(233, 69, 96, 0.2);
+            border-color: rgba(233, 69, 96, 0.4);
         }
 
         .day.other-month {
@@ -147,6 +152,11 @@
             font-weight: bold;
             border-color: var(--today-bg);
             box-shadow: 0 0 10px rgba(233, 69, 96, 0.5);
+        }
+
+        .day.today:hover {
+            background: #ff5673;
+            box-shadow: 0 0 15px rgba(233, 69, 96, 0.7);
         }
     </style>
 </head>
