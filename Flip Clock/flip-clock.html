@@ -35,15 +35,26 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            padding: 20px;
+            padding: 10px;
+            overflow: hidden;
+        }
+
+        .clock-wrapper {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transform-origin: center center;
         }
 
         .clock-container {
             display: flex;
             gap: 8px;
             align-items: center;
-            flex-wrap: wrap;
+            flex-wrap: nowrap;
             justify-content: center;
+            white-space: nowrap;
         }
 
         .time-section {
@@ -160,45 +171,36 @@
             transform: translateY(1px);
         }
 
-        /* Responsive design for smaller screens */
+        /* Responsive design - scale entire clock to fit */
         @media (max-width: 600px) {
-            .flip-card {
-                width: 50px;
-                height: 70px;
-            }
-
-            .flip-card-face {
-                font-size: 40px;
-            }
-
-            .separator-dot {
-                width: 6px;
-                height: 6px;
+            .clock-wrapper {
+                transform: scale(0.8);
             }
         }
 
-        @media (max-width: 400px) {
-            .flip-card {
-                width: 40px;
-                height: 60px;
+        @media (max-width: 450px) {
+            .clock-wrapper {
+                transform: scale(0.65);
             }
+        }
 
-            .flip-card-face {
-                font-size: 32px;
+        @media (max-width: 350px) {
+            .clock-wrapper {
+                transform: scale(0.5);
             }
+        }
 
-            .clock-container {
-                gap: 6px;
-            }
-
-            .time-section {
-                gap: 6px;
+        /* For very constrained widths (like Notion sidebars) */
+        @media (max-width: 280px) {
+            .clock-wrapper {
+                transform: scale(0.4);
             }
         }
     </style>
 </head>
 <body>
-    <div class="clock-container">
+    <div class="clock-wrapper">
+        <div class="clock-container">
         <!-- Hours -->
         <div class="time-section" id="hours-section">
             <div class="flip-card" id="hour-tens">
@@ -261,6 +263,7 @@
 
         <!-- AM/PM Indicator -->
         <div class="am-pm-indicator hidden" id="am-pm">AM</div>
+        </div>
     </div>
 
     <script>
