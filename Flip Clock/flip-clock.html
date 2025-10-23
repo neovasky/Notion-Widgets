@@ -106,8 +106,8 @@
 
         .flip-card {
             position: relative;
-            width: 200px;
-            height: 160px;
+            width: 160px;
+            height: 130px;
             perspective: 1000px;
         }
 
@@ -152,14 +152,14 @@
         }
 
         .flip-card-face .time-digits {
-            font-size: 96px;
+            font-size: 72px;
             line-height: 1;
         }
 
         .flip-card-face .sub-label {
             position: absolute;
-            bottom: 12px;
-            font-size: 16px;
+            bottom: 10px;
+            font-size: 14px;
             font-weight: normal;
             opacity: 0.7;
             text-transform: uppercase;
@@ -200,14 +200,14 @@
         /* Responsive design - reduce actual sizes instead of scaling */
         @media (max-width: 600px) {
             .flip-card {
-                width: 160px;
-                height: 130px;
+                width: 130px;
+                height: 110px;
             }
             .flip-card-face .time-digits {
-                font-size: 72px;
+                font-size: 60px;
             }
             .flip-card-face .sub-label {
-                font-size: 14px;
+                font-size: 12px;
             }
             .separator-dot {
                 width: 14px;
@@ -217,14 +217,14 @@
 
         @media (max-width: 450px) {
             .flip-card {
-                width: 130px;
-                height: 110px;
+                width: 110px;
+                height: 90px;
             }
             .flip-card-face .time-digits {
-                font-size: 56px;
+                font-size: 48px;
             }
             .flip-card-face .sub-label {
-                font-size: 12px;
+                font-size: 11px;
                 bottom: 8px;
             }
             .clock-container {
@@ -238,18 +238,18 @@
 
         @media (max-width: 350px) {
             .flip-card {
-                width: 100px;
-                height: 90px;
+                width: 90px;
+                height: 75px;
             }
             .flip-card-face {
-                border-radius: 12px;
+                border-radius: 10px;
             }
             .flip-card-face .time-digits {
-                font-size: 42px;
+                font-size: 36px;
             }
             .flip-card-face .sub-label {
-                font-size: 10px;
-                bottom: 6px;
+                font-size: 9px;
+                bottom: 5px;
             }
             .clock-container {
                 gap: 8px;
@@ -264,16 +264,16 @@
 <body>
     <div class="clock-wrapper">
         <div class="clock-container">
-        <!-- Hours Card with Day of Week -->
+        <!-- Hours Card with AM/PM -->
         <div class="flip-card" id="hours-card">
             <div class="flip-card-inner">
                 <div class="flip-card-face flip-card-front">
                     <span class="time-digits">00</span>
-                    <span class="sub-label">MON</span>
+                    <span class="sub-label">AM</span>
                 </div>
                 <div class="flip-card-face flip-card-back">
                     <span class="time-digits">00</span>
-                    <span class="sub-label">MON</span>
+                    <span class="sub-label">AM</span>
                 </div>
             </div>
         </div>
@@ -284,16 +284,16 @@
             <div class="separator-dot"></div>
         </div>
 
-        <!-- Minutes Card with AM/PM -->
+        <!-- Minutes Card with Day of Week -->
         <div class="flip-card" id="minutes-card">
             <div class="flip-card-inner">
                 <div class="flip-card-face flip-card-front">
                     <span class="time-digits">00</span>
-                    <span class="sub-label">AM</span>
+                    <span class="sub-label">MON</span>
                 </div>
                 <div class="flip-card-face flip-card-back">
                     <span class="time-digits">00</span>
-                    <span class="sub-label">AM</span>
+                    <span class="sub-label">MON</span>
                 </div>
             </div>
         </div>
@@ -380,18 +380,18 @@
                 hours = String(hours).padStart(2, '0');
             }
 
-            // Update hours card if changed
-            if (hours !== currentValues.hours || dayOfWeek !== currentValues.dayOfWeek) {
-                flipCard(hoursCard, hours, dayOfWeek);
+            // Update hours card if changed (with AM/PM)
+            if (hours !== currentValues.hours || (USE_12_HOUR && ampm !== currentValues.ampm)) {
+                flipCard(hoursCard, hours, USE_12_HOUR ? ampm : '');
                 currentValues.hours = hours;
-                currentValues.dayOfWeek = dayOfWeek;
+                currentValues.ampm = ampm;
             }
 
-            // Update minutes card if changed
-            if (minutes !== currentValues.minutes || (USE_12_HOUR && ampm !== currentValues.ampm)) {
-                flipCard(minutesCard, minutes, USE_12_HOUR ? ampm : '');
+            // Update minutes card if changed (with day of week)
+            if (minutes !== currentValues.minutes || dayOfWeek !== currentValues.dayOfWeek) {
+                flipCard(minutesCard, minutes, dayOfWeek);
                 currentValues.minutes = minutes;
-                currentValues.ampm = ampm;
+                currentValues.dayOfWeek = dayOfWeek;
             }
         }
 
@@ -420,8 +420,8 @@
                 card.querySelector('.flip-card-back .sub-label').textContent = label;
             };
 
-            setInitialValue(hoursCard, hours, dayOfWeek);
-            setInitialValue(minutesCard, minutes, USE_12_HOUR ? ampm : '');
+            setInitialValue(hoursCard, hours, USE_12_HOUR ? ampm : '');
+            setInitialValue(minutesCard, minutes, dayOfWeek);
 
             // Update current values
             currentValues.hours = hours;
